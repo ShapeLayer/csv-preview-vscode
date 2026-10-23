@@ -1,0 +1,18 @@
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0; color: var(--vscode-editor-foreground); background: var(--vscode-editor-background); font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); }
+#status { height: 32px; padding: 7px 12px; color: var(--vscode-descriptionForeground); border-bottom: 1px solid var(--vscode-panel-border); }
+#viewport { height: calc(100vh - 32px); overflow: auto; position: relative; outline-offset: -2px; }
+#viewport:focus-visible { outline: 1px solid var(--vscode-focusBorder); }
+table { border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: inherit; }
+th, td { position: relative; height: 30px; max-height: 30px; padding: 4px 10px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-right: 1px solid var(--vscode-panel-border); border-bottom: 1px solid var(--vscode-panel-border); line-height: 21px; }
+thead { position: sticky; top: 0; z-index: 3; }
+thead th { background: var(--vscode-editorGroupHeader-tabsBackground, var(--vscode-editor-background)); color: var(--vscode-editor-foreground); font-weight: 600; }
+.number { width: 52px; position: sticky; left: 0; z-index: 1; background: var(--vscode-editor-background); color: var(--vscode-editorLineNumber-foreground); font-weight: normal; text-align: right; }
+.active { background: var(--vscode-editor-selectionBackground) !important; color: var(--vscode-editor-selectionForeground, var(--vscode-editor-foreground)); outline: 2px solid var(--vscode-focusBorder); outline-offset: -2px; }
+.before td, .after td { padding: 0; border: 0; line-height: 0; }
+
+.content { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.resize { position: absolute; top: 0; right: 0; bottom: 0; width: 7px; cursor: col-resize; touch-action: none; }
+#column-guide { display: none; position: fixed; top: 32px; width: 2px; z-index: 10; pointer-events: none; background: var(--vscode-focusBorder); }
+.resizing, .resizing * { cursor: col-resize !important; user-select: none; }

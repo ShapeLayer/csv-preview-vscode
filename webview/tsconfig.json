@@ -1,0 +1,1 @@
+{"compilerOptions":{"target":"ES2022","module":"none","lib":["ES2022","DOM"],"rootDir":".","outDir":"../dist/webview","strict":true,"skipLibCheck":true,"types":[]},"include":["*.ts"]}

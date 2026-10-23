@@ -1,0 +1,130 @@
+{
+  "name": "csv-preview-vscode",
+  "displayName": "Lightweight CSV Preview",
+  "description": "Lightweight CSV table preview with editor sync, cell navigation, and resizable columns.",
+  "version": "0.1.0",
+  "publisher": "shapelayer",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization"
+  ],
+  "main": "./dist/extension.js",
+  "scripts": {
+    "compile": "tsc -p . && tsc -p webview && node scripts/copy.cjs",
+    "vscode:prepublish": "npm run compile",
+    "test": "npm run compile && node --test test/*.test.cjs",
+    "package": "vsce package --no-dependencies && node scripts/checksum.cjs",
+    "package:files": "vsce ls --no-dependencies",
+    "release:check": "npm test && node scripts/check-release.cjs && npm run package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "1.85.0",
+    "@vscode/vsce": "4.0.0",
+    "typescript": "^5.7.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "csv",
+        "extensions": [
+          ".csv"
+        ],
+        "aliases": [
+          "CSV",
+          "csv"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "csvPreview.openSide",
+        "title": "Open Preview to the Side",
+        "category": "CSV",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "csvPreview.open",
+        "title": "Open Preview",
+        "category": "CSV"
+      },
+      {
+        "command": "csvPreview.toggleHighlight",
+        "title": "Toggle Active Cell Highlight",
+        "category": "CSV"
+      },
+      {
+        "command": "csvPreview.resetColumnWidths",
+        "title": "Reset Column Widths",
+        "category": "CSV"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "csvPreview.openSide",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "editorTextFocus && (editorLangId == csv || resourceExtname =~ /\\.csv$/i)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "csvPreview.openSide",
+          "when": "editorLangId == csv || resourceExtname =~ /\\.csv$/i",
+          "group": "navigation"
+        },
+        {
+          "command": "csvPreview.resetColumnWidths",
+          "when": "activeWebviewPanelId == csvPreview",
+          "group": "1_csv"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "csvPreview.open",
+          "when": "resourceExtname =~ /\\.csv$/i",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CSV Preview",
+      "properties": {
+        "csvPreview.highlightActiveCell": {
+          "type": "boolean",
+          "default": true,
+          "description": "Highlight the CSV cell containing the source editor cursor."
+        },
+        "csvPreview.followEditor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Follow scrolling and cursor movement in the source editor."
+        },
+        "csvPreview.firstRowAsHeader": {
+          "type": "boolean",
+          "default": true,
+          "description": "Display the first record as a sticky column header."
+        }
+      }
+    }
+  },
+  "keywords": [
+    "csv",
+    "preview",
+    "table",
+    "viewer",
+    "lightweight"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shapelayer/csv-preview-vscode.git"
+  },
+  "homepage": "https://github.com/shapelayer/csv-preview-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/shapelayer/csv-preview-vscode/issues"
+  }
+}
