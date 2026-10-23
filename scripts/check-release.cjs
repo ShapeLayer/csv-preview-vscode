@@ -6,7 +6,8 @@ assert.match(manifest.version, /^\d+\.\d+\.\d+$/, 'Use a stable release version.
 assert.equal(manifest.version, lock.version, 'Manifest and lockfile versions must match.');
 assert.equal(manifest.version, lock.packages[''].version, 'Lockfile root version must match.');
 assert.ok(manifest.publisher && manifest.publisher !== 'local', 'Set the Marketplace publisher ID.');
-assert.ok(fs.readFileSync('CHANGELOG.md', 'utf8').includes(`## ${manifest.version}\n`), 'Add this release to CHANGELOG.md.');
+const changelogLines = fs.readFileSync('CHANGELOG.md', 'utf8').split(/\r\n|\n|\r/);
+assert.ok(changelogLines.some(line => line.trimEnd() === `## ${manifest.version}`), 'Add this release to CHANGELOG.md.');
 for (const file of ['LICENSE', 'README.md', 'CONTRIBUTING.md', 'dist/extension.js', 'dist/csv.js', 'dist/webview/preview.js', 'dist/webview/preview.css']) {
   assert.ok(fs.statSync(file).size > 0, `Missing or empty release file: ${file}`);
 }
